@@ -31,10 +31,10 @@ export default function MetricsTicker() {
           {[...metrics, ...metrics, ...metrics].map((m, i) => (
             <div key={i} className="flex items-center gap-8 md:gap-16">
               <div className="flex flex-col">
-                <span className="text-4xl md:text-7xl font-mono text-white tracking-tighter mix-blend-plus-lighter">{m.value}</span>
-                <span className="text-[10px] md:text-xs tracking-[0.3em] font-mono text-orange-500 uppercase mt-2">{m.label}</span>
+                <span className="text-5xl md:text-8xl font-black font-mono text-white tracking-tighter drop-shadow-xl">{m.value}</span>
+                <span className="text-sm md:text-base font-bold tracking-[0.2em] font-mono text-orange-500 uppercase mt-4">{m.label}</span>
               </div>
-              <div className="w-16 h-px bg-white/20" />
+              <div className="w-16 h-2 bg-orange-500/50 rounded-full" />
             </div>
           ))}
         </motion.div>

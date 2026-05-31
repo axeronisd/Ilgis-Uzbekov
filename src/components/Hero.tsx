@@ -7,17 +7,16 @@ export default function Hero() {
   const smoothProgress = useSpring(scrollYProgress, { damping: 20, stiffness: 45, mass: 1 });
   
   // Aggressive scroll transformations
-  const mainScale = useTransform(smoothProgress, [0, 0.2], [1, 1.5]);
-  const mainOpacity = useTransform(smoothProgress, [0, 0.15], [1, 0]);
-  const mainY = useTransform(smoothProgress, [0, 0.2], [0, 300]);
-  const blurValue = useTransform(smoothProgress, [0, 0.15], [0, 30]);
-  const bgScale = useTransform(smoothProgress, [0, 0.5], [1, 1.2]);
+  const mainScale = useTransform(scrollYProgress, [0, 0.2], [1, 1.2]);
+  const mainOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
+  const mainY = useTransform(scrollYProgress, [0, 0.2], [0, 150]);
+  const bgScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.1]);
 
   // Kinetic typography effect - shifts aggressively on scroll
-  const x1 = useTransform(smoothProgress, [0, 1], [0, -2000]);
-  const x2 = useTransform(smoothProgress, [0, 1], [0, 2000]);
-  const bgY = useTransform(smoothProgress, [0, 1], ["0%", "80%"]);
-  const glowOpacity = useTransform(smoothProgress, [0, 0.1], [0.3, 0]);
+  const x1 = useTransform(scrollYProgress, [0, 1], [0, -1500]);
+  const x2 = useTransform(scrollYProgress, [0, 1], [0, 1500]);
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const glowOpacity = useTransform(scrollYProgress, [0, 0.1], [0.3, 0]);
 
   return (
     <section className="relative min-h-[120vh] w-full flex flex-col items-center justify-center overflow-hidden">
@@ -61,38 +60,37 @@ export default function Hero() {
           scale: mainScale,
           opacity: mainOpacity,
           y: mainY,
-          filter: `blur(${blurValue.get()}px)`
         }}
         className="z-10 flex flex-col items-center relative"
       >
         <motion.div
-          initial={{ opacity: 0, y: 100, filter: "blur(20px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="text-center relative"
         >
           <div className="absolute -inset-10 bg-white/5 blur-3xl rounded-full -z-10" />
-          <h1 className="kinetic-text text-[clamp(4rem,9vw,9rem)] text-white tracking-[-0.04em] drop-shadow-[0_0_40px_rgba(255,255,255,0.3)] leading-none mb-4">
+          <h1 className="kinetic-text text-[clamp(4.5rem,10vw,10rem)] text-white tracking-tighter leading-none mb-6">
             ИЛГИС УЗБЕКОВ
           </h1>
           <div className="h-px w-full bg-gradient-to-r from-transparent via-white/50 to-transparent my-6 opacity-50" />
-          <h2 className="text-lg md:text-3xl font-mono tracking-[0.2em] text-white/90 uppercase drop-shadow-md">
+          <h2 className="text-xl md:text-4xl font-mono tracking-widest text-white/90 uppercase text-orange-500">
             Архитектор Систем
           </h2>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-16 max-w-2xl text-center px-4 relative"
+          transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-12 max-w-3xl text-center px-4 relative"
         >
-          <div className="tag mb-8 text-white bg-white/10 backdrop-blur-xl border-white/30 px-6 py-2 shadow-[0_0_30px_rgba(255,255,255,0.1)] inline-flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-orange-500 shadow-[0_0_15px_#f97316] animate-pulse" />
-            СИСТЕМА АКТИВНА // 2026
+          <div className="tag mb-10 text-white bg-white/10 backdrop-blur-md border border-white/20 px-8 py-3 rounded-full flex items-center justify-center gap-4 mx-auto w-fit">
+            <span className="w-3 h-3 rounded-full bg-orange-500 shadow-[0_0_15px_#f97316] animate-pulse" />
+            <span className="font-mono uppercase tracking-[0.2em] font-bold text-sm">Система Активна // 2026</span>
           </div>
-          <p className="text-white/90 text-lg md:text-2xl leading-relaxed mx-auto font-light drop-shadow-lg max-w-xl">
-            Создание высоконагруженных инструментов для бизнеса. Полная автоматизация процессов и интеграции ИИ.
+          <p className="text-white text-xl md:text-3xl leading-snug mx-auto font-medium max-w-2xl opacity-90">
+            Высоконагруженные инструменты для бизнеса. Абсолютная автоматизация и интеграция ИИ.
           </p>
         </motion.div>
       </motion.div>

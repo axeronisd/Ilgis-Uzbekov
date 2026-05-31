@@ -1,5 +1,5 @@
-import { motion, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from 'motion/react';
-import { useRef, MouseEvent } from 'react';
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'motion/react';
+import { useRef, MouseEvent, useState } from 'react';
 
 const projects = [
   {
@@ -42,66 +42,51 @@ const projects = [
 function ProjectCard({ project, index, totalItems, progress }: { project: any, index: number, totalItems: number, progress: any }) {
   const step = 1 / (totalItems - 1);
   const center = index * step;
+  const threshold = step * 0.8;
 
-  // Visual responses to scroll position (active state)
-  const scale = useTransform(progress, [center - step, center, center + step], [0.85, 1, 0.85]);
-  const opacity = useTransform(progress, [center - step, center, center + step], [0.3, 1, 0.3]);
-  const grayscaleRaw = useTransform(progress, [center - step, center, center + step], [1, 0, 1]);
-  const filter = useMotionTemplate`grayscale(${grayscaleRaw})`;
-  const imageScale = useTransform(progress, [center - step, center, center + step], [1.2, 1, 1.2]);
-
-  // Mouse hover spotlight
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
+  // Faster smoothing just for this card's inner transitions
+  const scale = useTransform(progress, [center - threshold, center, center + threshold], [0.9, 1, 0.9]);
+  const opacity = useTransform(progress, [center - threshold, center, center + threshold], [0.4, 1, 0.4]);
+  const colorIntensity = useTransform(progress, [center - threshold, center, center + threshold], [1, 0, 1]); // 1 = grayscale, 0 = color
 
   return (
     <motion.div
       style={{ scale, opacity }}
-      onMouseMove={handleMouseMove}
-      className="w-[85vw] md:w-[60vw] h-[75vh] shrink-0 glass-card relative overflow-hidden group border border-white/10 rounded-[2rem] shadow-2xl cursor-pointer"
+      className="w-[90vw] md:w-[70vw] h-[75vh] shrink-0 relative overflow-hidden rounded-[2rem] border border-white/20 bg-black shadow-2xl flex flex-col"
     >
-      {/* Mouse spotlight glow */}
-      <motion.div
-        className="pointer-events-none absolute -inset-px rounded-[2rem] opacity-0 transition duration-500 group-hover:opacity-100 mix-blend-screen z-20"
-        style={{
-          background: useMotionTemplate`radial-gradient(800px circle at ${mouseX}px ${mouseY}px, rgba(255,100,50,0.15), transparent 40%)`,
-        }}
-      />
-
-      {/* Background Image with intense Parallax */}
-      <div className="absolute inset-0 z-0 overflow-hidden bg-black flex items-center justify-center">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
         <motion.img 
-          style={{ scale: imageScale, filter }}
           src={project.image} 
           alt={project.title}
-          className="w-full h-full object-cover object-center absolute mix-blend-screen opacity-60"
+          style={{ filter: useTransform(colorIntensity, c => `grayscale(${c * 100}%) brightness(${1 - (c * 0.4)})`) }}
+          className="w-full h-full object-cover object-center opacity-80"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-[#050505]/20 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
+        <div className="absolute inset-0 bg-black/30" />
       </div>
 
-      <div className="p-8 md:p-14 relative z-10 h-full flex flex-col justify-end pointer-events-none">
-        <div className="absolute top-0 right-0 p-8 text-[120px] md:text-[200px] font-black leading-none text-white/[0.04] font-mono">
+      <div className="p-8 md:p-16 relative z-10 h-full flex flex-col justify-end">
+        <div className="absolute top-8 right-8 text-7xl md:text-9xl font-black text-white/10 font-mono pointer-events-none">
           0{index + 1}
         </div>
         
         <div className="flex flex-col md:flex-row md:items-end justify-between w-full">
-          <div className="max-w-2xl">
-            <div className="tag mb-6 text-white/90 bg-white/10 backdrop-blur-md border-white/30 tracking-widest px-4 py-1.5 shadow-xl">{project.year} // ПРОД</div>
-            <h3 className="kinetic-text text-5xl md:text-8xl tracking-[-0.05em] mb-4 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">{project.title}</h3>
-            <p className="text-white/90 text-lg md:text-xl leading-relaxed font-light md:mb-0 max-w-xl backdrop-blur-md bg-[#050505]/60 p-6 rounded-2xl border border-white/10 shadow-xl mix-blend-plus-lighter">
+          <div className="max-w-3xl">
+            <div className="inline-block bg-orange-500 text-black font-bold tracking-widest uppercase text-xs px-4 py-2 mb-6 rounded-full">
+              {project.year} // ПРОДАКШЕН
+            </div>
+            <h3 className="kinetic-text text-5xl md:text-7xl font-bold mb-6 text-white leading-tight">
+              {project.title}
+            </h3>
+            <p className="text-white text-xl md:text-2xl leading-relaxed font-medium md:mb-0 max-w-2xl bg-black/50 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
               {project.description}
             </p>
           </div>
           
-          <div className="flex flex-wrap gap-2 mt-6 md:mt-0 max-w-[200px]">
+          <div className="flex flex-wrap gap-3 mt-8 md:mt-0 max-w-[250px] justify-start md:justify-end">
             {project.tags.map((tag: string) => (
-              <span key={tag} className="text-[10px] uppercase tracking-widest py-2 px-4 border border-white/20 rounded-full bg-[#050505]/80 backdrop-blur-xl text-white/90 shadow-lg">
+              <span key={tag} className="text-xs uppercase tracking-wider font-bold py-2 px-5 border border-white/30 rounded-full bg-black/80 text-white shadow-lg">
                 {tag}
               </span>
             ))}
@@ -115,21 +100,21 @@ function ProjectCard({ project, index, totalItems, progress }: { project: any, i
 export default function ProjectsSection() {
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: targetRef });
-  const smoothProgress = useSpring(scrollYProgress, { damping: 20, stiffness: 45, mass: 1 });
+  // Light spring so horizontal scroll tracks well without jitter
+  const smoothProgress = useSpring(scrollYProgress, { damping: 40, stiffness: 100, mass: 0.5 });
   
   const totalItems = 6;
-  const x = useTransform(smoothProgress, [0, 1], ["5vw", "-470vw"]);
+  const x = useTransform(smoothProgress, [0, 1], ["5vw", "-450vw"]);
 
   return (
     <section ref={targetRef} className="relative h-[400vh] bg-[#050505] w-full" id="projects">
-      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden w-full">
-        <div className="absolute top-10 md:top-20 left-10 md:left-20 z-20 pointer-events-none">
-           <div className="text-[10px] uppercase tracking-[0.3em] text-orange-400 mb-2 font-mono">Избранные Решения</div>
-           <div className="h-px w-12 bg-orange-400/50 mt-4 mb-4" />
-           <h2 className="text-4xl md:text-6xl font-light tracking-tight opacity-90 drop-shadow-lg">Кейсы & Работы</h2>
+      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden w-full bg-[#050505]">
+        <div className="absolute top-10 md:top-20 left-10 md:left-20 z-20">
+           <div className="text-xs uppercase tracking-[0.3em] text-orange-500 font-bold mb-2 font-mono">Избранные Решения</div>
+           <h2 className="text-4xl md:text-6xl font-black tracking-tight text-white mb-2">Кейсы & Работы</h2>
         </div>
 
-        <motion.div style={{ x }} className="flex gap-[10vw] px-[10vw] items-center pt-20 relative z-10 w-fit">
+        <motion.div style={{ x }} className="flex gap-[5vw] px-[10vw] items-center pt-20 relative z-10 w-fit">
           {projects.map((p, i) => (
             <ProjectCard key={p.title} project={p} index={i} totalItems={totalItems} progress={smoothProgress} />
           ))}
@@ -139,13 +124,13 @@ export default function ProjectsSection() {
                scale: useTransform(smoothProgress, [1 - 2/(totalItems-1), 1], [0.85, 1]),
                opacity: useTransform(smoothProgress, [1 - 2/(totalItems-1), 1], [0.3, 1])
             }}
-            className="w-[85vw] md:w-[60vw] h-[75vh] shrink-0 flex items-center justify-center glass-card rounded-[2rem] border border-white/10 p-10 bg-gradient-to-br from-[#0a0a0a] to-[#010101]"
+            className="w-[90vw] md:w-[70vw] h-[75vh] shrink-0 flex items-center justify-center rounded-[2rem] border border-white/20 p-10 bg-[#0a0a0a]"
           >
-            <div className="text-center text-white/50 tracking-widest text-lg uppercase font-mono border border-white/5 bg-white/5 p-10 rounded-2xl shadow-xl backdrop-blur-md">
-              <div className="w-10 h-10 rounded-full border border-orange-500/30 text-orange-500 flex items-center justify-center mb-6 mx-auto animate-pulse">
-                 i
+            <div className="text-center text-white/70 text-2xl font-medium uppercase font-mono max-w-2xl border border-white/10 p-16 rounded-3xl bg-black">
+              <div className="w-16 h-16 rounded-full border-2 border-orange-500 text-orange-500 flex items-center justify-center mb-8 mx-auto animate-pulse text-2xl">
+                 !
               </div>
-              + Десятки микросервисов<br/>и скрытых утилит под NDA
+              Плюс десятки закрытых микросервисов, утилит и архитектурных решений под NDA.
             </div>
           </motion.div>
         </motion.div>
