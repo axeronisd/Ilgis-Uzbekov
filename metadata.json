@@ -1,0 +1,6 @@
+{
+  "name": "Dark Tech Portfolio",
+  "description": "Modern developer portfolio with 'Dark Tech & Glassmorphism' style, featuring kinetic scrolling and interactive effects.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
