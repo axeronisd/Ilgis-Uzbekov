@@ -39,17 +39,17 @@ function StackCard({ tech, index }: { tech: any, index: number }) {
         transformPerspective: 1000,
         transformStyle: "preserve-3d" 
       }}
-      className="bg-black border border-white/20 rounded-[2rem] p-10 flex flex-col items-center justify-center text-center gap-6 group shadow-2xl"
+      className="glass-card glow-border p-8 flex flex-col items-center justify-center text-center gap-4 group shadow-2xl"
     >
       <motion.div 
-        className="w-20 h-20 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-orange-500 transition-colors duration-300 shadow-xl"
+        className="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-white/10 transition-all duration-300 shadow-xl"
         style={{ z: iconZ }}
       >
-        <tech.icon className="w-10 h-10 text-white group-hover:text-black transition-colors" />
+        <tech.icon className="w-6 h-6 text-white/50 group-hover:text-white transition-colors" />
       </motion.div>
       <motion.div style={{ z: iconZ }} className="mt-2 text-center">
-        <h4 className="font-mono text-xl md:text-2xl font-bold tracking-wider mb-3 text-white">{tech.name}</h4>
-        <p className="text-sm font-medium uppercase tracking-widest text-white/70">{tech.description}</p>
+        <h4 className="font-mono text-sm tracking-wider mb-2 opacity-90">{tech.name}</h4>
+        <p className="text-[10px] uppercase tracking-[0.2em] text-white/50">{tech.description}</p>
       </motion.div>
     </motion.div>
   );
@@ -70,7 +70,7 @@ export default function StackSection() {
         <h2 className="text-3xl md:text-5xl font-light tracking-tight opacity-90">Арсенал инженера</h2>
       </motion.div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-6" style={{ perspective: "1000px" }}>
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4" style={{ perspective: "1000px" }}>
         {techStack.map((tech, i) => (
           <StackCard key={tech.name} tech={tech} index={i} />
         ))}
@@ -80,13 +80,13 @@ export default function StackSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="col-span-2 md:col-span-3 bg-[#0a0a0a] border border-white/20 p-8 mt-4 flex flex-col sm:flex-row items-center justify-center gap-6 text-center cursor-pointer group shadow-2xl rounded-[2rem]"
+            className="col-span-2 md:col-span-3 glass-card glow-border p-6 mt-4 flex flex-col sm:flex-row items-center justify-center gap-4 text-center cursor-pointer group shadow-2xl"
             data-interactive="true"
         >
-          <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center group-hover:bg-orange-500 transition-colors">
-              <Infinity className="text-white w-8 h-8 group-hover:text-black transition-colors" strokeWidth={2} />
+          <div className="w-[40px] h-[40px] bg-white/5 rounded-full flex items-center justify-center group-hover:bg-white/10 transition-colors">
+              <Infinity className="text-white/60 w-5 h-5 group-hover:text-white transition-colors" />
           </div>
-          <div className="text-sm md:text-base font-bold tracking-widest uppercase text-white/80 group-hover:text-white transition-opacity mt-4 sm:mt-0 font-mono">
+          <div className="text-[10px] tracking-widest uppercase opacity-70 group-hover:opacity-100 transition-opacity mt-2 sm:mt-0 font-mono">
               Инженерный майндсет — адаптируюсь под любой инструмент и инфраструктуру
           </div>
         </motion.div>

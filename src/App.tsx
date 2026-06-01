@@ -7,7 +7,6 @@ import ManifestoSection from './components/ManifestoSection';
 import ProjectsSection from './components/ProjectsSection';
 import ExpertiseSection from './components/ExpertiseSection';
 import MetricsTicker from './components/MetricsTicker';
-import FloatingPhrases from './components/FloatingPhrases';
 
 export default function App() {
   // Global scroll progress indicator for heavy physics feel
@@ -21,9 +20,9 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#050505] text-white selection:bg-white/30 selection:text-white overflow-hidden font-sans relative">
       <div className="bg-glow absolute inset-0 pointer-events-none z-0 fixed" />
-      <div className="bg-grid absolute inset-0 pointer-events-none z-0 fixed opacity-20" />
+      <div className="bg-grid absolute inset-0 pointer-events-none z-0 fixed opacity-20 filter blur-[1px]" />
       <div className="absolute inset-0 pointer-events-none z-50 overflow-hidden fixed">
-        <div className="w-full h-[50px] bg-gradient-to-b from-transparent via-white/5 to-transparent opacity-20 animate-scanline" />
+        <div className="w-full h-[50px] bg-gradient-to-b from-transparent via-white/5 to-transparent opacity-30 animate-scanline" />
       </div>
       <CustomCursor />
       
@@ -44,15 +43,11 @@ export default function App() {
 
       <main className="flex flex-col items-center relative z-10 w-full">
         <Hero />
-        <FloatingPhrases text="АВТОНОМНЫЕ АГЕНТЫ" direction={1} speed={1.5} />
         <ExpertiseSection />
-        <FloatingPhrases text="СИСТЕМНАЯ АРХИТЕКТУРА" direction={-1} speed={1.2} />
         <ManifestoSection />
         <ProjectsSection />
-        <FloatingPhrases text="ЦИФРОВЫЕ ИНСТРУМЕНТЫ" direction={1} speed={1.5} />
         <MetricsTicker />
         <StackSection />
-        <FloatingPhrases text="ИНЖЕНЕРНЫЙ МАЙНДСЕТ" direction={-1} speed={2} />
         <TerminalView />
       </main>
       

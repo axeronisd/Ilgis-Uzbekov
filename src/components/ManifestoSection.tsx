@@ -22,16 +22,18 @@ export default function ManifestoSection() {
        <motion.div style={{ y: y2 }} className="absolute right-[10%] md:right-[20%] top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent" />
 
        <motion.div style={{ opacity, scale }} className="max-w-5xl px-6 text-center z-10 relative">
-         <h2 className="kinetic-text text-[clamp(2.5rem,7vw,6.5rem)] leading-none text-white tracking-tighter mb-12 drop-shadow-2xl">
+         <div className="absolute inset-0 bg-white/5 blur-[120px] rounded-full pointer-events-none -z-10" />
+         
+         <h2 className="kinetic-text text-[clamp(2.5rem,7vw,6.5rem)] leading-[0.85] text-white tracking-[-0.05em] mb-12 pb-4 drop-shadow-2xl">
            ПРОГРАММЫ ДОЛЖНЫ <br/> 
-           РАБОТАТЬ САМИ ПО <span className="text-white/50 italic">СЕБЕ</span>
+           РАБОТАТЬ САМИ ПО <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255,255,255,0.7)' }}>СЕБЕ</span>
          </h2>
-         <p className="text-xl md:text-3xl font-medium text-white/90 max-w-4xl mx-auto leading-relaxed drop-shadow-md bg-black/50 p-6 rounded-3xl border border-white/10 backdrop-blur-sm">
+         <p className="text-xl md:text-3xl font-light text-white/60 tracking-wide max-w-4xl mx-auto leading-relaxed drop-shadow-md">
            Моя цель — избавить ваш бизнес от рутины. Я создаю автономные системы и ИИ-инструменты, которые берут на себя всю операционку, пока вы масштабируете прибыль.
          </p>
          
-         <div className="mt-16 inline-flex items-center gap-4 bg-orange-500 border border-orange-400 rounded-full px-8 py-4 font-mono text-base font-bold tracking-widest uppercase text-black shadow-[0_0_30px_rgba(249,115,22,0.3)]">
-            <span className="w-3 h-3 rounded-full bg-black shadow-[0_0_10px_rgba(0,0,0,0.5)] animate-pulse" />
+         <div className="mt-16 inline-flex items-center gap-3 bg-white/5 border border-white/10 rounded-full px-6 py-3 font-mono text-sm tracking-widest uppercase text-white/50 backdrop-blur-md shadow-xl">
+            <span className="w-2 h-2 rounded-full bg-orange-500 shadow-[0_0_10px_#f97316] animate-pulse" />
             Автоматизация 2026
          </div>
        </motion.div>

@@ -63,8 +63,7 @@ body {
   }
 
   .animate-scanline {
-    animation: scanline 10s linear infinite;
-    will-change: transform;
+    animation: scanline 8s linear infinite;
   }
 
   .glow-border {
