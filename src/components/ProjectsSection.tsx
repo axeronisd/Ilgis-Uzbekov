@@ -117,23 +117,23 @@ function ProjectCard({ project, index }: { project: any, index: number }) {
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-[#050505]/20 z-10" />
       </div>
 
-      <motion.div style={{ z: 50, y: textTranslateY }} className="p-10 md:p-16 relative z-10 min-h-[500px] flex flex-col justify-end">
-        <div className="absolute top-0 right-0 p-8 text-[120px] md:text-[200px] font-black leading-none text-white/[0.04] pointer-events-none font-mono">
+      <motion.div style={{ z: 50, y: textTranslateY }} className="p-6 sm:p-10 md:p-16 relative z-10 min-h-[400px] md:min-h-[500px] flex flex-col justify-end">
+        <div className="absolute top-0 right-0 p-4 md:p-8 text-[80px] md:text-[200px] font-black leading-none text-white/[0.04] pointer-events-none font-mono tracking-tighter">
           0{index + 1}
         </div>
         
         <div className="flex flex-col md:flex-row md:items-end justify-between w-full">
           <div className="max-w-2xl">
-            <div className="tag mb-8 text-white/90 bg-white/10 backdrop-blur-md border-white/30 tracking-widest px-4 py-1.5 shadow-xl">{project.year} // ПРОД</div>
-            <h3 className="kinetic-text text-5xl md:text-8xl tracking-[-0.05em] mb-4 md:mb-6 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">{project.title}</h3>
-            <p className="text-white/90 text-lg md:text-xl leading-relaxed font-light mb-8 md:mb-0 max-w-xl backdrop-blur-md bg-[#050505]/60 p-6 rounded-2xl border border-white/10 shadow-xl mix-blend-plus-lighter">
+            <div className="tag mb-6 md:mb-8 text-white/90 bg-white/10 backdrop-blur-md border-white/30 tracking-widest px-3 md:px-4 py-1 md:py-1.5 shadow-xl text-[10px] md:text-xs">{project.year} // ПРОД</div>
+            <h3 className="kinetic-text text-4xl sm:text-5xl md:text-8xl tracking-[-0.05em] mb-4 md:mb-6 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">{project.title}</h3>
+            <p className="text-white/90 text-sm sm:text-base md:text-xl leading-relaxed font-light mb-6 md:mb-0 max-w-xl backdrop-blur-md bg-[#050505]/60 p-4 md:p-6 rounded-2xl border border-white/10 shadow-xl mix-blend-plus-lighter">
               {project.description}
             </p>
           </div>
           
-          <div className="flex flex-wrap gap-3 mt-8 md:mt-0 max-w-[200px]">
+          <div className="flex flex-wrap gap-2 md:gap-3 mt-4 md:mt-0 max-w-full md:max-w-[200px]">
             {project.tags.map((tag: string) => (
-              <span key={tag} className="text-[10px] uppercase tracking-widest py-2 px-5 border border-white/20 rounded-full bg-[#050505]/80 backdrop-blur-xl text-white/90 shadow-lg">
+              <span key={tag} className="text-[9px] md:text-[10px] uppercase tracking-widest py-1.5 md:py-2 px-3 md:px-5 border border-white/20 rounded-full bg-[#050505]/80 backdrop-blur-xl text-white/90 shadow-lg">
                 {tag}
               </span>
             ))}

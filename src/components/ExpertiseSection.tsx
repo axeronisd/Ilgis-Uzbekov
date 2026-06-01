@@ -53,23 +53,23 @@ function ExpertiseCard({ item, i }: { item: any; i: number }) {
         transformPerspective: 1200,
         transformStyle: "preserve-3d"
       }}
-      className={`glass-card p-10 md:p-14 relative overflow-hidden group border border-white/10 rounded-[2rem] shadow-2xl`}
+      className={`glass-card p-6 sm:p-10 md:p-14 relative overflow-hidden group border border-white/10 rounded-[2rem] shadow-2xl`}
     >
       {/* Scroll driven persistent glow */}
       <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-40 group-hover:opacity-100 transition-opacity duration-1000 blur-3xl -z-10`} />
       
       <div className="relative z-10 flex flex-col h-full transform-gpu" style={{ transform: "translateZ(30px)" }}>
-        <div className="w-16 h-16 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center mb-8 shadow-xl group-hover:scale-110 group-hover:bg-white/10 group-hover:rotate-6 transition-all duration-500 ease-out">
-           <item.icon className="w-8 h-8 text-white/90 group-hover:text-white transition-colors" strokeWidth={1.5} />
+        <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center mb-6 md:mb-8 shadow-xl group-hover:scale-110 group-hover:bg-white/10 group-hover:rotate-6 transition-all duration-500 ease-out">
+           <item.icon className="w-6 h-6 md:w-8 md:h-8 text-white/90 group-hover:text-white transition-colors" strokeWidth={1.5} />
         </div>
-        <h3 className="text-3xl md:text-4xl font-medium tracking-tight mb-6 text-white drop-shadow-md group-hover:translate-x-2 transition-transform duration-500">{item.title}</h3>
-        <p className="text-white/80 leading-relaxed font-light mt-auto text-lg backdrop-blur-sm bg-white/5 p-4 rounded-xl border border-white/5 group-hover:border-white/20 transition-colors duration-500 shadow-xl">
+        <h3 className="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight mb-4 md:mb-6 text-white drop-shadow-md group-hover:translate-x-2 transition-transform duration-500">{item.title}</h3>
+        <p className="text-white/80 leading-relaxed font-light mt-auto text-sm sm:text-base md:text-lg backdrop-blur-sm bg-white/5 p-4 rounded-xl border border-white/5 group-hover:border-white/20 transition-colors duration-500 shadow-xl">
           {item.desc}
         </p>
       </div>
       
       {/* Corner Decorative Element */}
-      <div className="absolute top-8 right-8 opacity-40 font-mono text-lg text-white">
+      <div className="absolute top-6 right-6 md:top-8 md:right-8 opacity-40 font-mono text-base md:text-lg text-white">
          {String(i + 1).padStart(2, '0')}
       </div>
     </motion.div>

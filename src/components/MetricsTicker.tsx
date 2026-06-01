@@ -25,16 +25,16 @@ export default function MetricsTicker() {
       <div className="flex w-[200vw]">
         <motion.div 
           style={{ x: xTransform }} 
-          className="flex whitespace-nowrap items-center gap-16 md:gap-32 px-10"
+          className="flex whitespace-nowrap items-center gap-12 md:gap-32 px-6 md:px-10"
         >
           {/* We duplicate the metrics array to ensure a seamless infinite-scroll-like feel */}
           {[...metrics, ...metrics, ...metrics].map((m, i) => (
-            <div key={i} className="flex items-center gap-8 md:gap-16">
+            <div key={i} className="flex items-center gap-6 md:gap-16">
               <div className="flex flex-col">
-                <span className="text-4xl md:text-7xl font-mono text-white tracking-tighter mix-blend-plus-lighter">{m.value}</span>
-                <span className="text-[10px] md:text-xs tracking-[0.3em] font-mono text-orange-500 uppercase mt-2">{m.label}</span>
+                <span className="text-3xl sm:text-4xl md:text-7xl font-mono text-white tracking-tighter mix-blend-plus-lighter">{m.value}</span>
+                <span className="text-[9px] md:text-xs tracking-[0.3em] font-mono text-orange-500 uppercase mt-2">{m.label}</span>
               </div>
-              <div className="w-16 h-px bg-white/20" />
+              <div className="w-8 md:w-16 h-px bg-white/20" />
             </div>
           ))}
         </motion.div>

@@ -1,4 +1,5 @@
 import { motion, useScroll, useSpring } from 'motion/react';
+import { Cpu, Rocket, Code2 } from 'lucide-react';
 import CustomCursor from './components/CustomCursor';
 import Hero from './components/Hero';
 import StackSection from './components/StackSection';
@@ -32,7 +33,7 @@ export default function App() {
         style={{ scaleX }}
       />
       
-      <nav className="fixed top-0 left-0 right-0 w-full max-w-6xl mx-auto px-6 py-6 z-40 flex justify-between items-center bg-transparent pointer-events-auto mix-blend-difference">
+      <nav className="fixed top-0 left-0 right-0 w-full max-w-6xl mx-auto px-6 py-6 z-40 flex justify-between items-center bg-transparent pointer-events-auto mix-blend-difference hidden sm:flex">
         <div className="text-xl font-bold tracking-tighter cursor-pointer hover:scale-105 transition-transform" data-interactive="true">УЗБЕКОВ<span className="text-white/40">_</span></div>
         <div className="hidden sm:flex items-center gap-10 text-[11px] uppercase tracking-[0.2em] font-medium bg-white/5 backdrop-blur-xl border border-white/10 px-8 py-3 rounded-full">
           <a href="#expertise" data-interactive="true" className="opacity-60 hover:opacity-100 hover:text-white transition-all transform hover:-translate-y-0.5">Экспертиза</a>
@@ -40,6 +41,30 @@ export default function App() {
           <a href="#stack" data-interactive="true" className="opacity-60 hover:opacity-100 hover:text-white transition-all transform hover:-translate-y-0.5">Стек</a>
         </div>
       </nav>
+
+      {/* Mobile HUD (Bottom Navigation) */}
+      <motion.div 
+        initial={{ y: 100 }}
+        animate={{ y: 0 }}
+        transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
+        className="fixed bottom-6 left-4 right-4 z-50 sm:hidden pointer-events-auto"
+      >
+        <div className="bg-[#050505]/90 backdrop-blur-2xl border border-white/15 rounded-3xl p-2 flex justify-between items-center shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
+          <a href="#expertise" className="flex-1 flex flex-col items-center justify-center p-3 text-white/50 hover:text-white hover:bg-white/10 rounded-2xl transition-all">
+             <Cpu className="w-5 h-5 mb-1" />
+             <span className="text-[9px] uppercase tracking-widest font-mono">Опыт</span>
+          </a>
+          <a href="#projects" className="flex-1 flex flex-col items-center justify-center p-3 text-white/90 hover:bg-white/10 rounded-2xl transition-all relative">
+             <div className="absolute inset-0 bg-orange-500/10 rounded-2xl blur-md" />
+             <Rocket className="w-5 h-5 mb-1 text-orange-400" />
+             <span className="text-[9px] uppercase tracking-widest font-mono text-orange-400 font-bold">Прод</span>
+          </a>
+          <a href="#stack" className="flex-1 flex flex-col items-center justify-center p-3 text-white/50 hover:text-white hover:bg-white/10 rounded-2xl transition-all">
+             <Code2 className="w-5 h-5 mb-1" />
+             <span className="text-[9px] uppercase tracking-widest font-mono">Стек</span>
+          </a>
+        </div>
+      </motion.div>
 
       <main className="flex flex-col items-center relative z-10 w-full">
         <Hero />
