@@ -12,45 +12,22 @@ const techStack = [
 ];
 
 function StackCard({ tech, index }: { tech: any, index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
-
-  const smoothProgress = useSpring(scrollYProgress, { damping: 20, stiffness: 50 });
-
-  const rotateX = useTransform(smoothProgress, [0, 0.5, 1], [30, 0, -30]);
-  const scale = useTransform(smoothProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
-  const opacity = useTransform(smoothProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
-  const y = useTransform(smoothProgress, [0, 0.5, 1], [100, 0, -100]);
-  
-  // Parallax for inner content
-  const iconZ = useTransform(smoothProgress, [0, 0.5, 1], [0, 50, 0]);
-
   return (
     <motion.div
-      ref={ref}
-      style={{ 
-        rotateX, 
-        scale, 
-        opacity, 
-        y, 
-        transformPerspective: 1000,
-        transformStyle: "preserve-3d" 
-      }}
-      className="glass-card glow-border p-8 flex flex-col items-center justify-center text-center gap-4 group shadow-2xl"
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
+      className="glass-card glow-border p-6 flex flex-col items-center justify-center text-center gap-4 group shadow-xl relative overflow-hidden h-full border border-white/5 hover:border-white/20 transition-all duration-500"
     >
-      <motion.div 
-        className="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-white/10 transition-all duration-300 shadow-xl"
-        style={{ z: iconZ }}
-      >
-        <tech.icon className="w-6 h-6 text-white/50 group-hover:text-white transition-colors" />
-      </motion.div>
-      <motion.div style={{ z: iconZ }} className="mt-2 text-center">
-        <h4 className="font-mono text-sm tracking-wider mb-2 opacity-90">{tech.name}</h4>
-        <p className="text-[10px] uppercase tracking-[0.2em] text-white/50">{tech.description}</p>
-      </motion.div>
+      <div className="absolute inset-0 bg-gradient-to-t from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="w-14 h-14 rounded-full bg-[#0a0a0a] flex items-center justify-center border border-white/10 shadow-inner group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] group-hover:border-white/30 transition-all duration-500 relative z-10 group-hover:-translate-y-2">
+        <tech.icon className="w-6 h-6 text-white/40 group-hover:text-white transition-colors duration-500" />
+      </div>
+      <div className="mt-2 text-center relative z-10 transition-transform duration-500 group-hover:-translate-y-1">
+        <h4 className="font-mono text-sm tracking-widest mb-2 opacity-80 text-white">{tech.name}</h4>
+        <p className="text-[10px] uppercase tracking-[0.2em] text-white/30 group-hover:text-white/60 transition-colors">{tech.description}</p>
+      </div>
     </motion.div>
   );
 }

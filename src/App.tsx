@@ -21,7 +21,6 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#050505] text-white selection:bg-white/30 selection:text-white overflow-hidden font-sans relative">
       <div className="bg-glow absolute inset-0 pointer-events-none z-0 fixed" />
-      <div className="bg-grid absolute inset-0 pointer-events-none z-0 fixed opacity-20 filter blur-[1px]" />
       <div className="absolute inset-0 pointer-events-none z-50 overflow-hidden fixed">
         <div className="w-full h-[50px] bg-gradient-to-b from-transparent via-white/5 to-transparent opacity-30 animate-scanline" />
       </div>
@@ -33,8 +32,7 @@ export default function App() {
         style={{ scaleX }}
       />
       
-      <nav className="fixed top-0 left-0 right-0 w-full max-w-6xl mx-auto px-6 py-6 z-40 flex justify-between items-center bg-transparent pointer-events-auto mix-blend-difference hidden sm:flex">
-        <div className="text-xl font-bold tracking-tighter cursor-pointer hover:scale-105 transition-transform" data-interactive="true">УЗБЕКОВ<span className="text-white/40">_</span></div>
+      <nav className="fixed top-0 left-0 right-0 w-full max-w-6xl mx-auto px-6 py-6 z-40 flex justify-center items-center bg-transparent pointer-events-auto mix-blend-difference hidden sm:flex">
         <div className="hidden sm:flex items-center gap-10 text-[11px] uppercase tracking-[0.2em] font-medium bg-white/5 backdrop-blur-xl border border-white/10 px-8 py-3 rounded-full">
           <a href="#expertise" data-interactive="true" className="opacity-60 hover:opacity-100 hover:text-white transition-all transform hover:-translate-y-0.5">Экспертиза</a>
           <a href="#projects" data-interactive="true" className="opacity-60 hover:opacity-100 hover:text-white transition-all transform hover:-translate-y-0.5">Работы</a>

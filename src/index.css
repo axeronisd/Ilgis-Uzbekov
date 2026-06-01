@@ -43,18 +43,10 @@ body {
   }
 
   .glass-card {
-    background: rgba(255,255,255,0.03);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: #0f0f0f;
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 12px;
     box-shadow: 0 8px 32px 0 rgba(0,0,0,0.8);
-  }
-
-  .bg-grid {
-    background-size: 50px 50px;
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   }
 
   @keyframes scanline {

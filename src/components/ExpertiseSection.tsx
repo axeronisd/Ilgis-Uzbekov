@@ -30,46 +30,31 @@ const expertises = [
 ];
 
 function ExpertiseCard({ item, i }: { item: any; i: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
-
-  const smoothProgress = useSpring(scrollYProgress, { damping: 20, stiffness: 50 });
-  const opacity = useTransform(smoothProgress, [0, 0.4, 0.8, 1], [0, 1, 1, 0]);
-  const y = useTransform(smoothProgress, [0, 0.4, 0.8, 1], [150, 0, 0, -100]);
-  const scale = useTransform(smoothProgress, [0, 0.4, 0.8, 1], [0.8, 1, 1, 0.9]);
-  const rotateY = useTransform(smoothProgress, [0, 0.5, 1], [i % 2 === 0 ? 15 : -15, 0, i % 2 === 0 ? -15 : 15]);
-
   return (
     <motion.div
-      ref={ref}
-      style={{
-        opacity,
-        scale,
-        y: y,
-        rotateY,
-        transformPerspective: 1200,
-        transformStyle: "preserve-3d"
-      }}
-      className={`glass-card p-6 sm:p-10 md:p-14 relative overflow-hidden group border border-white/10 rounded-[2rem] shadow-2xl`}
+      initial={{ opacity: 0, y: 40, scale: 0.95 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      className={`glass-card p-6 sm:p-10 md:p-14 relative overflow-hidden group rounded-[2rem] shadow-2xl border border-white/5 hover:border-white/20 transition-all duration-500`}
     >
-      {/* Scroll driven persistent glow */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-40 group-hover:opacity-100 transition-opacity duration-1000 blur-3xl -z-10`} />
+      <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-20 transition-all duration-700 -z-10`} />
       
-      <div className="relative z-10 flex flex-col h-full transform-gpu" style={{ transform: "translateZ(30px)" }}>
-        <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center mb-6 md:mb-8 shadow-xl group-hover:scale-110 group-hover:bg-white/10 group-hover:rotate-6 transition-all duration-500 ease-out">
-           <item.icon className="w-6 h-6 md:w-8 md:h-8 text-white/90 group-hover:text-white transition-colors" strokeWidth={1.5} />
+      <div className="relative z-10 flex flex-col h-full transform-gpu transition-transform duration-500 group-hover:-translate-y-2">
+        <div className="absolute top-0 left-0 w-32 h-32 bg-white/20 blur-[50px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+        
+        <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center mb-6 md:mb-8 shadow-xl group-hover:scale-110 group-hover:bg-white/10 transition-all duration-500 ease-out relative">
+           <item.icon className="w-6 h-6 md:w-8 md:h-8 text-white/60 group-hover:text-white transition-colors duration-500" strokeWidth={1.5} />
         </div>
-        <h3 className="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight mb-4 md:mb-6 text-white drop-shadow-md group-hover:translate-x-2 transition-transform duration-500">{item.title}</h3>
-        <p className="text-white/80 leading-relaxed font-light mt-auto text-sm sm:text-base md:text-lg backdrop-blur-sm bg-white/5 p-4 rounded-xl border border-white/5 group-hover:border-white/20 transition-colors duration-500 shadow-xl">
+        
+        <h3 className="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight mb-4 md:mb-6 text-white/90 group-hover:text-white transition-colors duration-500">{item.title}</h3>
+        
+        <p className="text-white/50 leading-relaxed font-light mt-auto text-sm sm:text-base md:text-lg transition-colors duration-500 group-hover:text-white/80">
           {item.desc}
         </p>
       </div>
       
-      {/* Corner Decorative Element */}
-      <div className="absolute top-6 right-6 md:top-8 md:right-8 opacity-40 font-mono text-base md:text-lg text-white">
+      <div className="absolute top-6 right-6 md:top-8 md:right-8 opacity-20 font-mono text-base md:text-xl text-white group-hover:opacity-50 transition-opacity duration-500">
          {String(i + 1).padStart(2, '0')}
       </div>
     </motion.div>
